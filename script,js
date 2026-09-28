@@ -1,0 +1,319 @@
+// ================= VELORA LOGIN =================
+
+// Rollar va parollar
+const passwords = {
+    student: "1111",
+    teacher: "2222",
+    admin: "0000"
+};
+
+let selectedRole = "student";
+
+
+// ================= ROL TANLASH =================
+
+function selectRole(role, button) {
+
+    selectedRole = role;
+
+    document.querySelectorAll(".role-tab").forEach(tab => {
+        tab.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    document.getElementById("password").value = "";
+    document.getElementById("loginMessage").textContent = "";
+}
+
+
+// ================= LOGIN =================
+
+function login() {
+
+    const password =
+        document.getElementById("password").value.trim();
+
+    const message =
+        document.getElementById("loginMessage");
+
+
+    if (!password) {
+
+        message.textContent =
+            "Iltimos, parolni kiriting!";
+
+        return;
+    }
+
+
+    // Admin parolini istalgan rolda ham qabul qiladi
+    if (password === passwords.admin) {
+
+        openPage("adminPage");
+
+        return;
+    }
+
+
+    if (password !== passwords[selectedRole]) {
+
+        message.textContent =
+            "Parol noto‘g‘ri!";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    if (selectedRole === "student") {
+
+        openPage("studentPage");
+
+        showSection("homeSection");
+
+    }
+
+
+    if (selectedRole === "teacher") {
+
+        openPage("teacherPage");
+
+    }
+
+}
+
+
+// ================= PASSWORD KO‘RISH =================
+
+function togglePassword() {
+
+    const input =
+        document.getElementById("password");
+
+    const eye =
+        document.getElementById("eyeButton");
+
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        eye.textContent = "🙈";
+
+    } else {
+
+        input.type = "password";
+
+        eye.textContent = "👁";
+
+    }
+
+}
+
+
+// ================= PAGE OCHISH =================
+
+function openPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+
+        page.classList.remove("active");
+
+    });
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
+    window.scrollTo(0, 0);
+}
+
+
+// ================= STUDENT SECTION =================
+
+function showSection(sectionId) {
+
+    document
+        .querySelectorAll(".student-section")
+        .forEach(section => {
+
+            section.classList.remove("active-section");
+
+            section.style.display = "none";
+
+        });
+
+
+    const section =
+        document.getElementById(sectionId);
+
+
+    if (section) {
+
+        section.classList.add("active-section");
+
+        section.style.display = "block";
+
+    }
+
+    window.scrollTo(0, 0);
+}
+
+
+// ================= COURSE DATA =================
+
+const courses = {
+
+    "Tarix": {
+        icon: "🏛️",
+        category: "TARIX",
+        title: "Tarixni o‘rganish",
+        description:
+            "O‘zbekiston va jahon tarixidagi muhim voqealar, tarixiy shaxslar va davrlarni bosqichma-bosqich o‘rganing."
+    },
+
+    "English": {
+        icon: "🇬🇧",
+        category: "ENGLISH",
+        title: "English tili",
+        description:
+            "Grammar, Vocabulary, Speaking va Listening ko‘nikmalarini bosqichma-bosqich rivojlantiring."
+    },
+
+    "IT": {
+        icon: "💻",
+        category: "IT",
+        title: "Dasturlash asoslari",
+        description:
+            "HTML, CSS, JavaScript va Python yordamida dasturlashning asosiy tushunchalarini o‘rganing."
+    },
+
+    "Turk tili": {
+        icon: "🇹🇷",
+        category: "TURK TILI",
+        title: "Turk tilini o‘rganish",
+        description:
+            "Turk tilida o‘qish, yozish, grammatika va kundalik muloqot ko‘nikmalarini rivojlantiring."
+    },
+
+    "Arab tili": {
+        icon: "🇸🇦",
+        category: "ARAB TILI",
+        title: "Arab tili asoslari",
+        description:
+            "Arab alifbosi, so‘z boyligi, grammatika va oddiy suhbatlarni o‘rganing."
+    }
+
+};
+
+
+// ================= COURSE OPEN =================
+
+function openCourse(courseName) {
+
+    const course = courses[courseName];
+
+    if (!course) return;
+
+
+    document.getElementById("courseModalIcon")
+        .textContent = course.icon;
+
+
+    document.getElementById("courseModalCategory")
+        .textContent = course.category;
+
+
+    document.getElementById("courseModalTitle")
+        .textContent = course.title;
+
+
+    document.getElementById("courseModalDescription")
+        .textContent = course.description;
+
+
+    document
+        .getElementById("courseModal")
+        .classList.add("active");
+
+}
+
+
+// ================= COURSE CLOSE =================
+
+function closeCourse() {
+
+    document
+        .getElementById("courseModal")
+        .classList.remove("active");
+
+}
+
+
+// ================= LESSON =================
+
+function startLesson(number) {
+
+    const modal =
+        document.getElementById("courseModal");
+
+    modal.classList.remove("active");
+
+
+    alert(
+        `🎓 Dars ${number}\n\n` +
+        `Dars oynasi ochildi!\n\n` +
+        `Keyingi bosqichda bu yerga video, ` +
+        `nazariya, kod muharriri va test qo‘shamiz.`
+    );
+
+}
+
+
+// ================= LOGOUT =================
+
+function logout() {
+
+    openPage("loginPage");
+
+    document.getElementById("password").value = "";
+
+    document.getElementById("loginMessage").textContent = "";
+
+}
+
+
+// ================= MODAL TASHQARISIGA BOSISH =================
+
+document
+    .getElementById("courseModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+
+            closeCourse();
+
+        }
+
+    });
+
+
+// ================= ESC =================
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        closeCourse();
+
+    }
+
+});
+
+
+// ================= START =================
+
+openPage("loginPage");

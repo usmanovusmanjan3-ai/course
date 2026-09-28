@@ -1,0 +1,3827 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELORA — Online Education</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --black:#050505;
+    --black2:#0b0b0b;
+    --card:#111111;
+    --card2:#151515;
+    --gold:#ffd21f;
+    --gold-light:#fff3a3;
+    --gold-dark:#b88600;
+    --text:#ffffff;
+    --muted:#888888;
+    --red:#ff5555;
+    --green:#45e08b;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--black);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.page{
+    display:none;
+    min-height:100vh;
+}
+
+.page.active{
+    display:block;
+}
+
+/* ================= LOGIN ================= */
+
+#loginPage{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,210,31,.13),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(255,210,31,.08),transparent 30%),
+        #050505;
+}
+
+#loginPage.active{
+    display:flex;
+}
+
+.login-line{
+    position:absolute;
+    width:700px;
+    height:700px;
+    border:1px solid rgba(255,210,31,.08);
+    border-radius:50%;
+}
+
+.login-line.one{
+    left:-420px;
+    top:-150px;
+}
+
+.login-line.two{
+    right:-420px;
+    bottom:-180px;
+}
+
+.login-box{
+    width:440px;
+    max-width:100%;
+    padding:42px;
+    background:#0d0d0d;
+    border:1px solid rgba(255,210,31,.22);
+    border-radius:22px;
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.8),
+        0 0 45px rgba(255,210,31,.06);
+    position:relative;
+    z-index:2;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:35px;
+}
+
+.logo-icon{
+    width:55px;
+    height:55px;
+    background:var(--gold);
+    color:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    font-size:30px;
+    font-weight:900;
+    box-shadow:0 0 25px rgba(255,210,31,.4);
+}
+
+.logo h1{
+    font-size:26px;
+    letter-spacing:4px;
+}
+
+.logo p{
+    color:var(--gold);
+    font-size:9px;
+    letter-spacing:3px;
+    margin-top:3px;
+}
+
+.login-box h2{
+    font-size:28px;
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:7px;
+    margin-bottom:25px;
+}
+
+.roles{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+}
+
+.role{
+    padding:12px 5px;
+    background:#080808;
+    color:#777;
+    border:1px solid #242424;
+    border-radius:8px;
+    font-size:11px;
+}
+
+.role.active{
+    background:var(--gold);
+    color:#000;
+    border-color:var(--gold);
+}
+
+.password{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    background:#070707;
+    border:1px solid #292929;
+    border-radius:10px;
+    padding:0 13px;
+}
+
+.password span{
+    margin-right:9px;
+}
+
+.password input{
+    flex:1;
+    height:52px;
+    background:transparent;
+    border:0;
+    outline:0;
+    color:#fff;
+    font-size:15px;
+}
+
+.password button{
+    background:none;
+    border:0;
+    color:#777;
+    font-size:17px;
+}
+
+.login-btn{
+    width:100%;
+    margin-top:14px;
+    padding:15px;
+    border:0;
+    border-radius:10px;
+    background:var(--gold);
+    color:#000;
+    font-weight:900;
+    font-size:14px;
+}
+
+.login-btn:hover{
+    box-shadow:0 0 25px rgba(255,210,31,.3);
+}
+
+.message{
+    min-height:20px;
+    color:#ff6565;
+    text-align:center;
+    font-size:12px;
+    margin-top:10px;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    min-height:75px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:1px solid #1b1b1b;
+    background:rgba(5,5,5,.96);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.small-logo{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.small-icon{
+    width:35px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--gold);
+    color:#000;
+    border-radius:9px;
+}
+
+.top-nav{
+    display:flex;
+    gap:5px;
+}
+
+.top-nav button{
+    background:none;
+    border:0;
+    color:#777;
+    padding:10px 13px;
+    font-size:12px;
+}
+
+.top-nav button:hover{
+    color:var(--gold);
+}
+
+.user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-icon{
+    font-size:20px;
+}
+
+.user-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.user-info b{
+    font-size:11px;
+}
+
+.user-info small{
+    color:#666;
+    font-size:9px;
+}
+
+.logout{
+    background:#111;
+    border:1px solid #292929;
+    color:#aaa;
+    padding:8px 11px;
+    border-radius:7px;
+}
+
+.logout:hover{
+    color:#fff;
+    border-color:#555;
+}
+
+/* ================= MAIN ================= */
+
+.container{
+    width:100%;
+    max-width:1250px;
+    margin:auto;
+    padding:55px 5%;
+}
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome{
+    min-height:400px;
+    display:grid;
+    grid-template-columns:1fr 350px;
+    align-items:center;
+    gap:50px;
+}
+
+.label{
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:3px;
+    font-weight:800;
+}
+
+.welcome h1{
+    font-size:clamp(42px,5vw,65px);
+    line-height:1.05;
+    margin:15px 0;
+}
+
+.welcome h1 span{
+    color:var(--gold);
+    text-shadow:0 0 20px rgba(255,210,31,.35);
+}
+
+.welcome p{
+    max-width:570px;
+    color:var(--muted);
+    line-height:1.7;
+    font-size:14px;
+}
+
+.gold-btn{
+    margin-top:25px;
+    padding:14px 21px;
+    border:0;
+    border-radius:9px;
+    background:var(--gold);
+    color:#000;
+    font-weight:800;
+}
+
+.gold-btn:hover{
+    box-shadow:0 0 25px rgba(255,210,31,.25);
+}
+
+.progress-card{
+    padding:30px;
+    background:linear-gradient(145deg,#151515,#090909);
+    border:1px solid rgba(255,210,31,.18);
+    border-radius:20px;
+    text-align:center;
+}
+
+.circle{
+    width:150px;
+    height:150px;
+    border:9px solid var(--gold);
+    border-radius:50%;
+    margin:0 auto 25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 30px rgba(255,210,31,.15);
+}
+
+.circle strong{
+    color:var(--gold);
+    font-size:32px;
+}
+
+.circle small{
+    color:#777;
+}
+
+.progress-card p{
+    margin-top:7px;
+}
+
+/* ================= TITLES ================= */
+
+.title{
+    margin-bottom:40px;
+}
+
+.title h1{
+    font-size:42px;
+    margin:8px 0;
+}
+
+.title p{
+    color:var(--muted);
+}
+
+/* ================= COURSES ================= */
+
+.course-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.course{
+    padding:28px;
+    background:var(--card);
+    border:1px solid #202020;
+    border-radius:17px;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.course:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,210,31,.4);
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.course-icon{
+    width:62px;
+    height:62px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,210,31,.08);
+    border-radius:14px;
+    font-size:30px;
+    margin-bottom:23px;
+}
+
+.course small{
+    color:var(--gold);
+    letter-spacing:2px;
+    font-weight:bold;
+}
+
+.course h3{
+    font-size:19px;
+    margin:10px 0;
+}
+
+.course p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+    min-height:62px;
+}
+
+.course-bottom{
+    margin-top:20px;
+    display:flex;
+    justify-content:space-between;
+    color:#666;
+    font-size:11px;
+}
+
+.course-bottom b{
+    color:var(--gold);
+    font-size:18px;
+}
+
+/* ================= RESULTS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.stat{
+    padding:27px;
+    background:var(--card);
+    border:1px solid #202020;
+    border-radius:15px;
+}
+
+.stat div{
+    font-size:25px;
+}
+
+.stat strong{
+    display:block;
+    color:var(--gold);
+    font-size:30px;
+    margin-top:12px;
+}
+
+.stat small{
+    color:#666;
+}
+
+/* ================= CERTIFICATE ================= */
+
+.certificate{
+    max-width:650px;
+    margin:80px auto;
+    text-align:center;
+    padding:60px 30px;
+    background:var(--card);
+    border:1px solid rgba(255,210,31,.2);
+    border-radius:20px;
+}
+
+.certificate .emoji{
+    font-size:60px;
+}
+
+.certificate h2{
+    margin:15px 0 8px;
+}
+
+.certificate p{
+    color:var(--muted);
+}
+
+/* ================= PANEL ================= */
+
+.panel-cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-top:35px;
+}
+
+.panel-card{
+    padding:27px;
+    background:var(--card);
+    border:1px solid #202020;
+    border-radius:15px;
+}
+
+.panel-card span{
+    font-size:25px;
+}
+
+.panel-card strong{
+    display:block;
+    color:var(--gold);
+    font-size:30px;
+    margin:12px 0 3px;
+}
+
+.panel-card small{
+    color:#666;
+}
+
+.management{
+    margin-top:30px;
+    padding:30px;
+    background:var(--card);
+    border:1px solid #202020;
+    border-radius:17px;
+}
+
+.management h2{
+    margin-bottom:20px;
+}
+
+.manage-btn{
+    width:100%;
+    text-align:left;
+    margin-top:9px;
+    padding:15px;
+    border-radius:8px;
+    background:#080808;
+    border:1px solid #252525;
+    color:#bbb;
+    transition:.2s;
+}
+
+.manage-btn:hover{
+    color:var(--gold);
+    border-color:rgba(255,210,31,.5);
+    transform:translateX(3px);
+}
+
+/* ================= TEACHER COURSES ================= */
+
+.teacher-course-item{
+    margin-top:12px;
+    padding:20px;
+    background:#080808;
+    border:1px solid #252525;
+    border-radius:12px;
+}
+
+.teacher-course-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.teacher-course-header h3{
+    font-size:16px;
+}
+
+.teacher-course-header span{
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.teacher-course-description{
+    color:#777;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:8px;
+}
+
+.teacher-course-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
+}
+
+.teacher-action{
+    padding:8px 12px;
+    border-radius:7px;
+    border:1px solid #292929;
+    background:#111;
+    color:#aaa;
+    font-size:11px;
+}
+
+.teacher-action:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+}
+
+.teacher-delete:hover{
+    color:var(--red);
+    border-color:var(--red);
+}
+
+.empty-teacher{
+    padding:25px;
+    text-align:center;
+    color:#666;
+    border:1px dashed #292929;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+/* ================= FORMS ================= */
+
+.teacher-form{
+    display:grid;
+    gap:15px;
+    margin-top:25px;
+}
+
+.teacher-input,
+.teacher-select,
+.teacher-textarea{
+    width:100%;
+    padding:14px;
+    background:#080808;
+    color:#fff;
+    border:1px solid #292929;
+    border-radius:9px;
+    outline:none;
+    font-size:13px;
+}
+
+.teacher-input:focus,
+.teacher-select:focus,
+.teacher-textarea:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 15px rgba(255,210,31,.08);
+}
+
+.teacher-textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.teacher-submit{
+    width:100%;
+    padding:14px;
+    background:var(--gold);
+    color:#000;
+    border:0;
+    border-radius:9px;
+    font-weight:900;
+}
+
+.teacher-submit:hover{
+    box-shadow:0 0 20px rgba(255,210,31,.3);
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.88);
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:560px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    padding:35px;
+    background:#111;
+    border:1px solid rgba(255,210,31,.22);
+    border-radius:20px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:17px;
+    top:12px;
+    background:none;
+    border:0;
+    color:#777;
+    font-size:30px;
+}
+
+.close:hover{
+    color:#fff;
+}
+
+.modal-icon{
+    width:65px;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,210,31,.08);
+    border-radius:14px;
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.modal-category{
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:2px;
+    font-weight:bold;
+}
+
+.modal-box h2{
+    margin:8px 0;
+}
+
+.modal-description{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.lessons{
+    display:grid;
+    gap:10px;
+}
+
+.lesson{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px;
+    background:#080808;
+    border:1px solid #202020;
+    border-radius:10px;
+}
+
+.lesson-number{
+    color:var(--gold);
+    font-weight:bold;
+}
+
+.lesson-info{
+    flex:1;
+}
+
+.lesson-info b{
+    display:block;
+    font-size:13px;
+}
+
+.lesson-info small{
+    color:#666;
+    font-size:10px;
+}
+
+.lesson button{
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:8px;
+    background:var(--gold);
+    color:#000;
+}
+
+/* ================= TABLE ================= */
+
+.data-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+.data-table th,
+.data-table td{
+    padding:13px;
+    border-bottom:1px solid #252525;
+    text-align:left;
+    font-size:12px;
+}
+
+.data-table th{
+    color:var(--gold);
+}
+
+.data-table td{
+    color:#bbb;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#151515;
+    border:1px solid rgba(255,210,31,.3);
+    color:#fff;
+    padding:15px 20px;
+    border-radius:10px;
+    display:none;
+    z-index:1000;
+    box-shadow:0 10px 40px #000;
+}
+
+.toast.show{
+    display:block;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .welcome{
+        grid-template-columns:1fr;
+    }
+
+    .course-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats,
+    .panel-cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .top-nav{
+        display:none;
+    }
+}
+
+@media(max-width:600px){
+
+    .login-box{
+        padding:30px 22px;
+    }
+
+    .roles{
+        grid-template-columns:1fr;
+    }
+
+    .course-grid,
+    .stats,
+    .panel-cards{
+        grid-template-columns:1fr;
+    }
+
+    .welcome h1{
+        font-size:42px;
+    }
+
+    .user-info{
+        display:none;
+    }
+
+    .container{
+        padding:40px 5%;
+    }
+
+    .teacher-course-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .modal-box{
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<div id="loginPage" class="page active">
+
+    <div class="login-line one"></div>
+    <div class="login-line two"></div>
+
+    <div class="login-box">
+
+        <div class="logo">
+
+            <div class="logo-icon">V</div>
+
+            <div>
+                <h1>VELORA</h1>
+                <p>ONLINE EDUCATION</p>
+            </div>
+
+        </div>
+
+        <h2>Xush kelibsiz 👋</h2>
+
+        <p class="subtitle">
+            Platformaga kirish uchun parolingizni kiriting
+        </p>
+
+        <div class="roles">
+
+            <button
+                class="role active"
+                onclick="chooseRole('student',this)">
+                👨‍🎓 O‘quvchi
+            </button>
+
+            <button
+                class="role"
+                onclick="chooseRole('teacher',this)">
+                👨‍🏫 O‘qituvchi
+            </button>
+
+            <button
+                class="role"
+                onclick="chooseRole('admin',this)">
+                👑 Admin
+            </button>
+
+        </div>
+
+        <div class="password">
+
+            <span>🔐</span>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Parol"
+                maxlength="10"
+                onkeydown="if(event.key==='Enter') login()"
+            >
+
+            <button
+                onclick="showPassword()"
+                id="eye">
+                👁
+            </button>
+
+        </div>
+
+        <button
+            class="login-btn"
+            onclick="login()">
+            KIRISH →
+        </button>
+
+        <div
+            id="message"
+            class="message">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     STUDENT
+===================================================== -->
+
+<div id="studentPage" class="page">
+
+    <header class="topbar">
+
+        <div class="small-logo">
+            <div class="small-icon">V</div>
+            VELORA
+        </div>
+
+        <div class="top-nav">
+
+            <button onclick="showSection('home')">
+                Bosh sahifa
+            </button>
+
+            <button onclick="showSection('courses')">
+                Kurslar
+            </button>
+
+            <button onclick="showSection('results')">
+                Natijalar
+            </button>
+
+            <button onclick="showSection('certificate')">
+                Sertifikat
+            </button>
+
+        </div>
+
+        <div class="user">
+
+            <div class="user-icon">👨‍🎓</div>
+
+            <div class="user-info">
+                <b>O‘quvchi</b>
+                <small>Student</small>
+            </div>
+
+            <button
+                class="logout"
+                onclick="logout()">
+                ↪
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <section
+            id="home"
+            class="section active">
+
+            <div class="welcome">
+
+                <div>
+
+                    <span class="label">
+                        VELORA LEARNING
+                    </span>
+
+                    <h1>
+                        Bilim olishni
+                        <span>bugundan</span>
+                        boshlang.
+                    </h1>
+
+                    <p>
+                        Tarix, English, IT, Turk tili va
+                        Arab tilini zamonaviy onlayn ta’lim
+                        orqali o‘rganing.
+                    </p>
+
+                    <button
+                        class="gold-btn"
+                        onclick="showSection('courses')">
+                        Kurslarni ko‘rish →
+                    </button>
+
+                </div>
+
+                <div class="progress-card">
+
+                    <div class="circle">
+                        <strong>68%</strong>
+                        <small>Progress</small>
+                    </div>
+
+                    <h3>Umumiy progress</h3>
+
+                    <p>
+                        12 ta dars yakunlandi
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="courses"
+            class="section">
+
+            <div class="title">
+
+                <span class="label">
+                    ALL COURSES
+                </span>
+
+                <h1>Barcha kurslar</h1>
+
+                <p>
+                    O‘zingizga mos yo‘nalishni tanlang.
+                </p>
+
+            </div>
+
+            <div
+                id="studentCourseGrid"
+                class="course-grid">
+            </div>
+
+        </section>
+
+
+        <section
+            id="results"
+            class="section">
+
+            <div class="title">
+
+                <span class="label">
+                    MY RESULTS
+                </span>
+
+                <h1>Natijalarim</h1>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div>📚</div>
+                    <strong>12</strong>
+                    <small>Tugatilgan dars</small>
+                </div>
+
+                <div class="stat">
+                    <div>📝</div>
+                    <strong>8</strong>
+                    <small>Ishlangan test</small>
+                </div>
+
+                <div class="stat">
+                    <div>⭐</div>
+                    <strong>86%</strong>
+                    <small>O‘rtacha natija</small>
+                </div>
+
+                <div class="stat">
+                    <div>🔥</div>
+                    <strong>7</strong>
+                    <small>Kunlik streak</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="certificate"
+            class="section">
+
+            <div class="title">
+
+                <span class="label">
+                    CERTIFICATE
+                </span>
+
+                <h1>Sertifikatlarim</h1>
+
+            </div>
+
+            <div class="certificate">
+
+                <div class="emoji">
+                    🏆
+                </div>
+
+                <h2>
+                    Hozircha sertifikat yo‘q
+                </h2>
+
+                <p>
+                    Kursni muvaffaqiyatli tugating va
+                    sertifikatingizni oling.
+                </p>
+
+                <button
+                    class="gold-btn"
+                    onclick="showSection('courses')">
+                    Kurslarni ko‘rish →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     TEACHER
+===================================================== -->
+
+<div id="teacherPage" class="page">
+
+    <header class="topbar">
+
+        <div class="small-logo">
+            <div class="small-icon">V</div>
+            VELORA
+        </div>
+
+        <strong style="color:#ffd21f">
+            👨‍🏫 O‘qituvchi paneli
+        </strong>
+
+        <button
+            class="logout"
+            onclick="logout()">
+            Chiqish
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="title">
+
+            <span class="label">
+                TEACHER PANEL
+            </span>
+
+            <h1>
+                O‘qituvchi Dashboard
+            </h1>
+
+            <p>
+                Kurslar, darslar, testlar va
+                o‘quvchilarni boshqaring.
+            </p>
+
+        </div>
+
+
+        <div class="panel-cards">
+
+            <div class="panel-card">
+                <span>📚</span>
+                <strong id="teacherCourseCount">0</strong>
+                <small>Kurslar</small>
+            </div>
+
+            <div class="panel-card">
+                <span>📖</span>
+                <strong id="teacherLessonCount">0</strong>
+                <small>Darslar</small>
+            </div>
+
+            <div class="panel-card">
+                <span>📝</span>
+                <strong id="teacherTestCount">0</strong>
+                <small>Testlar</small>
+            </div>
+
+            <div class="panel-card">
+                <span>👨‍🎓</span>
+                <strong>128</strong>
+                <small>O‘quvchilar</small>
+            </div>
+
+        </div>
+
+
+        <div class="management">
+
+            <h2>
+                ⚡ Boshqaruv
+            </h2>
+
+            <button
+                class="manage-btn"
+                onclick="openTeacherModal('course')">
+                ➕ Yangi kurs qo‘shish
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="openTeacherModal('lesson')">
+                📚 Yangi dars qo‘shish
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="openTeacherModal('test')">
+                📝 Test yaratish
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="showStudents()">
+                👨‍🎓 O‘quvchilar ro‘yxati
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="showResults()">
+                📊 O‘quvchilar natijalari
+            </button>
+
+        </div>
+
+
+        <div class="management">
+
+            <h2>
+                📚 Mening kurslarim
+            </h2>
+
+            <div id="teacherCoursesList"></div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN
+===================================================== -->
+
+<div id="adminPage" class="page">
+
+    <header class="topbar">
+
+        <div class="small-logo">
+            <div class="small-icon">V</div>
+            VELORA
+        </div>
+
+        <strong style="color:#ffd21f">
+            👑 Admin panel
+        </strong>
+
+        <button
+            class="logout"
+            onclick="logout()">
+            Chiqish
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="title">
+
+            <span class="label">
+                ADMINISTRATION
+            </span>
+
+            <h1>
+                Admin Dashboard
+            </h1>
+
+            <p>
+                VELORA platformasini boshqarish.
+            </p>
+
+        </div>
+
+
+        <div class="panel-cards">
+
+            <div class="panel-card">
+                <span>👨‍🎓</span>
+                <strong>1,248</strong>
+                <small>O‘quvchilar</small>
+            </div>
+
+            <div class="panel-card">
+                <span>👨‍🏫</span>
+                <strong>32</strong>
+                <small>O‘qituvchilar</small>
+            </div>
+
+            <div class="panel-card">
+                <span>📚</span>
+                <strong id="adminCourseCount">5</strong>
+                <small>Kurslar</small>
+            </div>
+
+            <div class="panel-card">
+                <span>🏆</span>
+                <strong>684</strong>
+                <small>Sertifikatlar</small>
+            </div>
+
+        </div>
+
+
+        <div class="management">
+
+            <h2>
+                Platforma boshqaruvi
+            </h2>
+
+            <button
+                class="manage-btn"
+                onclick="toast('👨‍🎓 O‘quvchilar bo‘limi')">
+                👨‍🎓 O‘quvchilarni boshqarish
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="toast('👨‍🏫 O‘qituvchilar bo‘limi')">
+                👨‍🏫 O‘qituvchilarni boshqarish
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="showAdminCourses()">
+                📚 Kurslarni boshqarish
+            </button>
+
+            <button
+                class="manage-btn"
+                onclick="toast('📊 Statistika bo‘limi')">
+                📊 Umumiy statistika
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     STUDENT COURSE MODAL
+===================================================== -->
+
+<div
+    id="courseModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeCourse()">
+            ×
+        </button>
+
+        <div
+            id="modalIcon"
+            class="modal-icon">
+            💻
+        </div>
+
+        <div
+            id="modalCategory"
+            class="modal-category">
+            IT
+        </div>
+
+        <h2 id="modalTitle">
+            Dasturlash asoslari
+        </h2>
+
+        <p
+            id="modalDescription"
+            class="modal-description">
+        </p>
+
+        <div
+            id="modalLessons"
+            class="lessons">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TEACHER MODAL
+===================================================== -->
+
+<div
+    id="teacherModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeTeacherModal()">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            👨‍🏫
+        </div>
+
+        <div
+            id="teacherModalCategory"
+            class="modal-category">
+            TEACHER
+        </div>
+
+        <h2 id="teacherModalTitle">
+            Yangi kurs
+        </h2>
+
+        <div id="teacherForm"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INFO MODAL
+===================================================== -->
+
+<div
+    id="infoModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeInfoModal()">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            📊
+        </div>
+
+        <h2 id="infoModalTitle">
+            Ma’lumot
+        </h2>
+
+        <div id="infoModalContent"></div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+<script>
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+let selectedRole = "student";
+
+
+const passwords = {
+    student:"1111",
+    teacher:"2222",
+    admin:"0000"
+};
+
+
+function chooseRole(role,button){
+
+    selectedRole = role;
+
+    document.querySelectorAll(".role").forEach(function(item){
+
+        item.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+    document.getElementById("password").value = "";
+
+    document.getElementById("message").textContent = "";
+
+}
+
+
+function login(){
+
+    const password =
+        document.getElementById("password").value.trim();
+
+    const message =
+        document.getElementById("message");
+
+
+    if(password === ""){
+
+        message.textContent =
+            "Parolni kiriting!";
+
+        return;
+
+    }
+
+
+    if(password === passwords[selectedRole]){
+
+        message.textContent = "";
+
+
+        if(selectedRole === "student"){
+
+            openPage("studentPage");
+
+            renderStudentCourses();
+
+            showSection("home");
+
+        }
+
+
+        else if(selectedRole === "teacher"){
+
+            openPage("teacherPage");
+
+            renderTeacherCourses();
+
+            updateTeacherStats();
+
+        }
+
+
+        else if(selectedRole === "admin"){
+
+            openPage("adminPage");
+
+            updateAdminStats();
+
+        }
+
+        return;
+
+    }
+
+
+    message.textContent =
+        "Parol noto‘g‘ri!";
+
+}
+
+
+function showPassword(){
+
+    const input =
+        document.getElementById("password");
+
+    const eye =
+        document.getElementById("eye");
+
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        eye.textContent = "🙈";
+
+    }
+
+    else{
+
+        input.type = "password";
+
+        eye.textContent = "👁";
+
+    }
+
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+function openPage(pageId){
+
+    document.querySelectorAll(".page").forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+
+    const page =
+        document.getElementById(pageId);
+
+
+    if(page){
+
+        page.classList.add("active");
+
+    }
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* =====================================================
+   STUDENT SECTION
+===================================================== */
+
+function showSection(sectionId){
+
+    document.querySelectorAll(".section").forEach(function(section){
+
+        section.classList.remove("active");
+
+    });
+
+
+    const section =
+        document.getElementById(sectionId);
+
+
+    if(section){
+
+        section.classList.add("active");
+
+    }
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* =====================================================
+   COURSE DATABASE
+===================================================== */
+
+const defaultCourses = [
+
+    {
+        id:1,
+        name:"Tarixni o‘rganish",
+        category:"TARIX",
+        icon:"🏛️",
+        description:
+        "O‘zbekiston va jahon tarixidagi muhim voqealar, tarixiy shaxslar va davrlarni o‘rganing.",
+        lessons:[
+            {
+                name:"Kursga kirish",
+                duration:"10 daqiqa"
+            },
+            {
+                name:"Qadimgi dunyo tarixi",
+                duration:"20 daqiqa"
+            },
+            {
+                name:"O‘zbekiston tarixi",
+                duration:"30 daqiqa"
+            }
+        ]
+    },
+
+    {
+        id:2,
+        name:"English tili",
+        category:"ENGLISH",
+        icon:"🇬🇧",
+        description:
+        "Grammar, Speaking, Listening va Vocabulary ko‘nikmalarini rivojlantiring.",
+        lessons:[
+            {
+                name:"Introduction",
+                duration:"10 daqiqa"
+            },
+            {
+                name:"Grammar Basics",
+                duration:"20 daqiqa"
+            },
+            {
+                name:"Speaking Practice",
+                duration:"30 daqiqa"
+            }
+        ]
+    },
+
+    {
+        id:3,
+        name:"Dasturlash asoslari",
+        category:"IT",
+        icon:"💻",
+        description:
+        "HTML, CSS, JavaScript va Python dasturlash asoslarini bosqichma-bosqich o‘rganing.",
+        lessons:[
+            {
+                name:"HTML asoslari",
+                duration:"20 daqiqa"
+            },
+            {
+                name:"CSS asoslari",
+                duration:"25 daqiqa"
+            },
+            {
+                name:"JavaScript asoslari",
+                duration:"30 daqiqa"
+            }
+        ]
+    },
+
+    {
+        id:4,
+        name:"Turk tilini o‘rganish",
+        category:"TURK TILI",
+        icon:"🇹🇷",
+        description:
+        "Turk tilida o‘qish, yozish, grammatika va kundalik suhbatlarni o‘rganing.",
+        lessons:[
+            {
+                name:"Alifbo",
+                duration:"15 daqiqa"
+            },
+            {
+                name:"So‘zlar",
+                duration:"20 daqiqa"
+            },
+            {
+                name:"Suhbat",
+                duration:"25 daqiqa"
+            }
+        ]
+    },
+
+    {
+        id:5,
+        name:"Arab tili asoslari",
+        category:"ARAB TILI",
+        icon:"🇸🇦",
+        description:
+        "Arab alifbosi, grammatika va kundalik so‘zlarni o‘rganing.",
+        lessons:[
+            {
+                name:"Arab alifbosi",
+                duration:"15 daqiqa"
+            },
+            {
+                name:"So‘zlar",
+                duration:"20 daqiqa"
+            },
+            {
+                name:"Oddiy gaplar",
+                duration:"25 daqiqa"
+            }
+        ]
+    }
+
+];
+
+
+let teacherCourses =
+    JSON.parse(
+        localStorage.getItem("veloraTeacherCourses")
+    );
+
+
+if(!Array.isArray(teacherCourses)){
+
+    teacherCourses =
+        JSON.parse(
+            JSON.stringify(defaultCourses)
+        );
+
+    saveTeacherData();
+
+}
+
+
+let teacherTests =
+    JSON.parse(
+        localStorage.getItem("veloraTeacherTests")
+    ) || [];
+
+
+let teacherLessons =
+    JSON.parse(
+        localStorage.getItem("veloraTeacherLessons")
+    ) || [];
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveTeacherData(){
+
+    localStorage.setItem(
+        "veloraTeacherCourses",
+        JSON.stringify(teacherCourses)
+    );
+
+    localStorage.setItem(
+        "veloraTeacherTests",
+        JSON.stringify(teacherTests)
+    );
+
+    localStorage.setItem(
+        "veloraTeacherLessons",
+        JSON.stringify(teacherLessons)
+    );
+
+}
+
+
+/* =====================================================
+   STUDENT COURSES
+===================================================== */
+
+function renderStudentCourses(){
+
+    const box =
+        document.getElementById(
+            "studentCourseGrid"
+        );
+
+
+    if(!box) return;
+
+
+    box.innerHTML = "";
+
+
+    teacherCourses.forEach(function(course){
+
+        const card =
+            document.createElement("div");
+
+        card.className = "course";
+
+
+        card.innerHTML = `
+
+            <div class="course-icon">
+                ${course.icon || "📚"}
+            </div>
+
+            <small>
+                ${course.category}
+            </small>
+
+            <h3>
+                ${escapeHtml(course.name)}
+            </h3>
+
+            <p>
+                ${escapeHtml(course.description)}
+            </p>
+
+            <div class="course-bottom">
+
+                <span>
+                    ${course.lessons.length} ta dars
+                </span>
+
+                <b>
+                    →
+                </b>
+
+            </div>
+        `;
+
+
+        card.onclick = function(){
+
+            openCourse(course.id);
+
+        };
+
+
+        box.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   OPEN STUDENT COURSE
+===================================================== */
+
+function openCourse(id){
+
+    const course =
+        teacherCourses.find(
+            c => c.id === id
+        );
+
+
+    if(!course) return;
+
+
+    document.getElementById("modalIcon")
+        .textContent =
+        course.icon || "📚";
+
+
+    document.getElementById("modalCategory")
+        .textContent =
+        course.category;
+
+
+    document.getElementById("modalTitle")
+        .textContent =
+        course.name;
+
+
+    document.getElementById("modalDescription")
+        .textContent =
+        course.description;
+
+
+    const lessons =
+        document.getElementById(
+            "modalLessons"
+        );
+
+
+    lessons.innerHTML = "";
+
+
+    if(course.lessons.length === 0){
+
+        lessons.innerHTML = `
+            <div class="empty-teacher">
+                Hozircha dars mavjud emas.
+            </div>
+        `;
+
+    }
+
+
+    course.lessons.forEach(function(lesson,index){
+
+        const item =
+            document.createElement("div");
+
+        item.className = "lesson";
+
+
+        item.innerHTML = `
+
+            <div class="lesson-number">
+                ${String(index+1).padStart(2,"0")}
+            </div>
+
+            <div class="lesson-info">
+
+                <b>
+                    ${escapeHtml(lesson.name)}
+                </b>
+
+                <small>
+                    ${lesson.duration || 0} daqiqa
+                </small>
+
+            </div>
+
+            <button>
+                ▶
+            </button>
+
+        `;
+
+
+        item.querySelector("button")
+            .onclick = function(){
+
+                startLesson(
+                    lesson.name
+                );
+
+            };
+
+
+        lessons.appendChild(item);
+
+    });
+
+
+    document.getElementById(
+        "courseModal"
+    ).classList.add("active");
+
+}
+
+
+function closeCourse(){
+
+    document.getElementById(
+        "courseModal"
+    ).classList.remove("active");
+
+}
+
+
+function startLesson(name){
+
+    closeCourse();
+
+    toast(
+        "🎓 " + name + " darsi ochildi!"
+    );
+
+}
+
+
+/* =====================================================
+   TEACHER MODAL
+===================================================== */
+
+function openTeacherModal(type){
+
+    const modal =
+        document.getElementById(
+            "teacherModal"
+        );
+
+    const title =
+        document.getElementById(
+            "teacherModalTitle"
+        );
+
+    const category =
+        document.getElementById(
+            "teacherModalCategory"
+        );
+
+    const form =
+        document.getElementById(
+            "teacherForm"
+        );
+
+
+    modal.classList.add("active");
+
+
+    /* COURSE */
+
+    if(type === "course"){
+
+        category.textContent =
+            "NEW COURSE";
+
+        title.textContent =
+            "Yangi kurs qo‘shish";
+
+
+        form.innerHTML = `
+
+            <div class="teacher-form">
+
+                <input
+                    id="newCourseName"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="Kurs nomi"
+                >
+
+                <select
+                    id="newCourseCategory"
+                    class="teacher-select">
+
+                    <option value="IT">
+                        IT
+                    </option>
+
+                    <option value="TARIX">
+                        Tarix
+                    </option>
+
+                    <option value="ENGLISH">
+                        English
+                    </option>
+
+                    <option value="TURK TILI">
+                        Turk tili
+                    </option>
+
+                    <option value="ARAB TILI">
+                        Arab tili
+                    </option>
+
+                </select>
+
+                <textarea
+                    id="newCourseDescription"
+                    class="teacher-textarea"
+                    placeholder="Kurs haqida ma’lumot">
+                </textarea>
+
+                <button
+                    class="teacher-submit"
+                    onclick="addTeacherCourse()">
+
+                    ➕ KURSNI SAQLASH
+
+                </button>
+
+            </div>
+        `;
+
+    }
+
+
+    /* LESSON */
+
+    if(type === "lesson"){
+
+        category.textContent =
+            "NEW LESSON";
+
+        title.textContent =
+            "Yangi dars qo‘shish";
+
+
+        if(teacherCourses.length === 0){
+
+            form.innerHTML = `
+                <div class="empty-teacher">
+                    Avval kurs yarating.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        form.innerHTML = `
+
+            <div class="teacher-form">
+
+                <select
+                    id="lessonCourse"
+                    class="teacher-select">
+
+                    ${teacherCourses.map(course => `
+
+                        <option value="${course.id}">
+                            ${escapeHtml(course.name)}
+                        </option>
+
+                    `).join("")}
+
+                </select>
+
+
+                <input
+                    id="lessonName"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="Dars nomi"
+                >
+
+
+                <input
+                    id="lessonDuration"
+                    class="teacher-input"
+                    type="number"
+                    min="1"
+                    placeholder="Davomiyligi (daqiqa)"
+                >
+
+
+                <textarea
+                    id="lessonDescription"
+                    class="teacher-textarea"
+                    placeholder="Dars haqida ma’lumot">
+                </textarea>
+
+
+                <button
+                    class="teacher-submit"
+                    onclick="addTeacherLesson()">
+
+                    📚 DARSNI SAQLASH
+
+                </button>
+
+            </div>
+        `;
+
+    }
+
+
+    /* TEST */
+
+    if(type === "test"){
+
+        category.textContent =
+            "NEW TEST";
+
+        title.textContent =
+            "Test yaratish";
+
+
+        if(teacherCourses.length === 0){
+
+            form.innerHTML = `
+                <div class="empty-teacher">
+                    Avval kurs yarating.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        form.innerHTML = `
+
+            <div class="teacher-form">
+
+                <select
+                    id="testCourse"
+                    class="teacher-select">
+
+                    ${teacherCourses.map(course => `
+
+                        <option value="${course.id}">
+                            ${escapeHtml(course.name)}
+                        </option>
+
+                    `).join("")}
+
+                </select>
+
+
+                <input
+                    id="testQuestion"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="Savol"
+                >
+
+
+                <input
+                    id="testA"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="A variant"
+                >
+
+
+                <input
+                    id="testB"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="B variant"
+                >
+
+
+                <input
+                    id="testC"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="C variant"
+                >
+
+
+                <input
+                    id="testD"
+                    class="teacher-input"
+                    type="text"
+                    placeholder="D variant"
+                >
+
+
+                <select
+                    id="testCorrect"
+                    class="teacher-select">
+
+                    <option value="A">
+                        To‘g‘ri javob: A
+                    </option>
+
+                    <option value="B">
+                        To‘g‘ri javob: B
+                    </option>
+
+                    <option value="C">
+                        To‘g‘ri javob: C
+                    </option>
+
+                    <option value="D">
+                        To‘g‘ri javob: D
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="teacher-submit"
+                    onclick="addTeacherTest()">
+
+                    📝 TESTNI SAQLASH
+
+                </button>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+function closeTeacherModal(){
+
+    document.getElementById(
+        "teacherModal"
+    ).classList.remove("active");
+
+}
+
+
+/* =====================================================
+   ADD COURSE
+===================================================== */
+
+function addTeacherCourse(){
+
+    const name =
+        document.getElementById(
+            "newCourseName"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "newCourseCategory"
+        ).value;
+
+
+    const description =
+        document.getElementById(
+            "newCourseDescription"
+        ).value.trim();
+
+
+    if(name === ""){
+
+        toast(
+            "⚠️ Kurs nomini kiriting!"
+        );
+
+        return;
+
+    }
+
+
+    const iconMap = {
+
+        "IT":"💻",
+
+        "TARIX":"🏛️",
+
+        "ENGLISH":"🇬🇧",
+
+        "TURK TILI":"🇹🇷",
+
+        "ARAB TILI":"🇸🇦"
+
+    };
+
+
+    teacherCourses.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        category:category,
+
+        icon:iconMap[category] || "📚",
+
+        description:
+            description ||
+            "Yangi o‘quv kursi",
+
+        lessons:[]
+
+    });
+
+
+    saveTeacherData();
+
+    renderTeacherCourses();
+
+    renderStudentCourses();
+
+    updateTeacherStats();
+
+    updateAdminStats();
+
+    closeTeacherModal();
+
+    toast(
+        "✅ Kurs muvaffaqiyatli qo‘shildi!"
+    );
+
+}
+
+
+/* =====================================================
+   ADD LESSON
+===================================================== */
+
+function addTeacherLesson(){
+
+    const courseId =
+        Number(
+            document.getElementById(
+                "lessonCourse"
+            ).value
+        );
+
+
+    const name =
+        document.getElementById(
+            "lessonName"
+        ).value.trim();
+
+
+    const duration =
+        document.getElementById(
+            "lessonDuration"
+        ).value;
+
+
+    const description =
+        document.getElementById(
+            "lessonDescription"
+        ).value.trim();
+
+
+    if(name === ""){
+
+        toast(
+            "⚠️ Dars nomini kiriting!"
+        );
+
+        return;
+
+    }
+
+
+    const course =
+        teacherCourses.find(
+            c => c.id === courseId
+        );
+
+
+    if(!course){
+
+        toast(
+            "⚠️ Kurs topilmadi!"
+        );
+
+        return;
+
+    }
+
+
+    const lesson = {
+
+        id:Date.now(),
+
+        name:name,
+
+        duration:
+            duration || 0,
+
+        description:description
+
+    };
+
+
+    course.lessons.push(lesson);
+
+    teacherLessons.push({
+
+        ...lesson,
+
+        courseId:courseId
+
+    });
+
+
+    saveTeacherData();
+
+    renderTeacherCourses();
+
+    renderStudentCourses();
+
+    updateTeacherStats();
+
+    closeTeacherModal();
+
+    toast(
+        "✅ Dars muvaffaqiyatli qo‘shildi!"
+    );
+
+}
+
+
+/* =====================================================
+   ADD TEST
+===================================================== */
+
+function addTeacherTest(){
+
+    const courseId =
+        Number(
+            document.getElementById(
+                "testCourse"
+            ).value
+        );
+
+
+    const question =
+        document.getElementById(
+            "testQuestion"
+        ).value.trim();
+
+
+    const A =
+        document.getElementById(
+            "testA"
+        ).value.trim();
+
+
+    const B =
+        document.getElementById(
+            "testB"
+        ).value.trim();
+
+
+    const C =
+        document.getElementById(
+            "testC"
+        ).value.trim();
+
+
+    const D =
+        document.getElementById(
+            "testD"
+        ).value.trim();
+
+
+    const correct =
+        document.getElementById(
+            "testCorrect"
+        ).value;
+
+
+    if(question === ""){
+
+        toast(
+            "⚠️ Savolni kiriting!"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        A === "" ||
+        B === "" ||
+        C === "" ||
+        D === ""
+    ){
+
+        toast(
+            "⚠️ Barcha variantlarni kiriting!"
+        );
+
+        return;
+
+    }
+
+
+    teacherTests.push({
+
+        id:Date.now(),
+
+        courseId:courseId,
+
+        question:question,
+
+        A:A,
+
+        B:B,
+
+        C:C,
+
+        D:D,
+
+        correct:correct
+
+    });
+
+
+    saveTeacherData();
+
+    updateTeacherStats();
+
+    closeTeacherModal();
+
+    toast(
+        "✅ Test muvaffaqiyatli yaratildi!"
+    );
+
+}
+
+
+/* =====================================================
+   RENDER TEACHER COURSES
+===================================================== */
+
+function renderTeacherCourses(){
+
+    const box =
+        document.getElementById(
+            "teacherCoursesList"
+        );
+
+
+    if(!box) return;
+
+
+    if(teacherCourses.length === 0){
+
+        box.innerHTML = `
+            <div class="empty-teacher">
+                Hozircha kurslar mavjud emas.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    teacherCourses.forEach(function(course){
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "teacher-course-item";
+
+
+        item.innerHTML = `
+
+            <div class="teacher-course-header">
+
+                <h3>
+                    ${course.icon || "📚"}
+                    ${escapeHtml(course.name)}
+                </h3>
+
+                <span>
+                    ${course.category}
+                </span>
+
+            </div>
+
+
+            <div class="teacher-course-description">
+
+                ${escapeHtml(course.description)}
+
+            </div>
+
+
+            <div class="teacher-course-description">
+
+                📖 ${course.lessons.length} ta dars
+
+            </div>
+
+
+            <div class="teacher-course-description">
+
+                📝 ${
+                    teacherTests.filter(
+                        test =>
+                        test.courseId === course.id
+                    ).length
+                } ta test
+
+            </div>
+
+
+            <div class="teacher-course-actions">
+
+                <button
+                    class="teacher-action"
+                    onclick="addLessonToCourse(${course.id})">
+
+                    ➕ Dars
+
+                </button>
+
+
+                <button
+                    class="teacher-action"
+                    onclick="viewCourseLessons(${course.id})">
+
+                    📖 Darslarni ko‘rish
+
+                </button>
+
+
+                <button
+                    class="teacher-action"
+                    onclick="editCourse(${course.id})">
+
+                    ✏️ Tahrirlash
+
+                </button>
+
+
+                <button
+                    class="teacher-action teacher-delete"
+                    onclick="deleteCourse(${course.id})">
+
+                    🗑️ O‘chirish
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(item);
+
+    });
+
+}
+
+
+/* =====================================================
+   ADD LESSON TO COURSE
+===================================================== */
+
+function addLessonToCourse(courseId){
+
+    openTeacherModal("lesson");
+
+
+    setTimeout(function(){
+
+        const select =
+            document.getElementById(
+                "lessonCourse"
+            );
+
+
+        if(select){
+
+            select.value =
+                String(courseId);
+
+        }
+
+    },50);
+
+}
+
+
+/* =====================================================
+   VIEW LESSONS
+===================================================== */
+
+function viewCourseLessons(courseId){
+
+    const course =
+        teacherCourses.find(
+            c => c.id === courseId
+        );
+
+
+    if(!course) return;
+
+
+    document.getElementById(
+        "infoModalTitle"
+    ).textContent =
+        "📖 " + course.name;
+
+
+    const content =
+        document.getElementById(
+            "infoModalContent"
+        );
+
+
+    if(course.lessons.length === 0){
+
+        content.innerHTML = `
+            <div class="empty-teacher">
+                Hozircha darslar mavjud emas.
+            </div>
+        `;
+
+    }
+
+    else{
+
+        content.innerHTML =
+            course.lessons.map(
+                function(lesson,index){
+
+                    return `
+
+                        <div class="teacher-course-item">
+
+                            <b>
+                                ${index+1}.
+                                ${escapeHtml(lesson.name)}
+                            </b>
+
+                            <div class="teacher-course-description">
+
+                                ⏱️
+                                ${lesson.duration || 0}
+                                daqiqa
+
+                            </div>
+
+                            <div class="teacher-course-description">
+
+                                ${escapeHtml(
+                                    lesson.description ||
+                                    "Tavsif mavjud emas."
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    document.getElementById(
+        "infoModal"
+    ).classList.add("active");
+
+}
+
+
+/* =====================================================
+   EDIT COURSE
+===================================================== */
+
+function editCourse(courseId){
+
+    const course =
+        teacherCourses.find(
+            c => c.id === courseId
+        );
+
+
+    if(!course) return;
+
+
+    document.getElementById(
+        "teacherModalCategory"
+    ).textContent =
+        "EDIT COURSE";
+
+
+    document.getElementById(
+        "teacherModalTitle"
+    ).textContent =
+        "Kursni tahrirlash";
+
+
+    document.getElementById(
+        "teacherForm"
+    ).innerHTML = `
+
+        <div class="teacher-form">
+
+            <input
+                id="editCourseName"
+                class="teacher-input"
+                value="${escapeAttribute(course.name)}"
+                placeholder="Kurs nomi"
+            >
+
+
+            <select
+                id="editCourseCategory"
+                class="teacher-select">
+
+                <option value="IT">
+                    IT
+                </option>
+
+                <option value="TARIX">
+                    Tarix
+                </option>
+
+                <option value="ENGLISH">
+                    English
+                </option>
+
+                <option value="TURK TILI">
+                    Turk tili
+                </option>
+
+                <option value="ARAB TILI">
+                    Arab tili
+                </option>
+
+            </select>
+
+
+            <textarea
+                id="editCourseDescription"
+                class="teacher-textarea"
+                placeholder="Kurs haqida">
+                ${escapeHtml(course.description)}
+            </textarea>
+
+
+            <button
+                class="teacher-submit"
+                onclick="saveEditedCourse(${courseId})">
+
+                💾 O‘ZGARISHLARNI SAQLASH
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "editCourseCategory"
+    ).value =
+        course.category;
+
+
+    document.getElementById(
+        "teacherModal"
+    ).classList.add("active");
+
+}
+
+
+function saveEditedCourse(courseId){
+
+    const course =
+        teacherCourses.find(
+            c => c.id === courseId
+        );
+
+
+    if(!course) return;
+
+
+    const name =
+        document.getElementById(
+            "editCourseName"
+        ).value.trim();
+
+
+    const category =
+        document.getElementById(
+            "editCourseCategory"
+        ).value;
+
+
+    const description =
+        document.getElementById(
+            "editCourseDescription"
+        ).value.trim();
+
+
+    if(name === ""){
+
+        toast(
+            "⚠️ Kurs nomini kiriting!"
+        );
+
+        return;
+
+    }
+
+
+    const iconMap = {
+
+        "IT":"💻",
+
+        "TARIX":"🏛️",
+
+        "ENGLISH":"🇬🇧",
+
+        "TURK TILI":"🇹🇷",
+
+        "ARAB TILI":"🇸🇦"
+
+    };
+
+
+    course.name =
+        name;
+
+    course.category =
+        category;
+
+    course.icon =
+        iconMap[category] || "📚";
+
+    course.description =
+        description ||
+        "O‘quv kursi";
+
+
+    saveTeacherData();
+
+    renderTeacherCourses();
+
+    renderStudentCourses();
+
+    closeTeacherModal();
+
+    toast(
+        "✅ Kurs yangilandi!"
+    );
+
+}
+
+
+/* =====================================================
+   DELETE COURSE
+===================================================== */
+
+function deleteCourse(courseId){
+
+    const course =
+        teacherCourses.find(
+            c => c.id === courseId
+        );
+
+
+    if(!course) return;
+
+
+    const confirmed =
+        confirm(
+            '"' +
+            course.name +
+            '" kursini o‘chirmoqchimisiz?'
+        );
+
+
+    if(!confirmed) return;
+
+
+    teacherCourses =
+        teacherCourses.filter(
+            c => c.id !== courseId
+        );
+
+
+    teacherLessons =
+        teacherLessons.filter(
+            lesson =>
+            lesson.courseId !== courseId
+        );
+
+
+    teacherTests =
+        teacherTests.filter(
+            test =>
+            test.courseId !== courseId
+        );
+
+
+    saveTeacherData();
+
+    renderTeacherCourses();
+
+    renderStudentCourses();
+
+    updateTeacherStats();
+
+    updateAdminStats();
+
+    toast(
+        "🗑️ Kurs o‘chirildi!"
+    );
+
+}
+
+
+/* =====================================================
+   TEACHER STATS
+===================================================== */
+
+function updateTeacherStats(){
+
+    const courseCount =
+        document.getElementById(
+            "teacherCourseCount"
+        );
+
+
+    const lessonCount =
+        document.getElementById(
+            "teacherLessonCount"
+        );
+
+
+    const testCount =
+        document.getElementById(
+            "teacherTestCount"
+        );
+
+
+    if(courseCount){
+
+        courseCount.textContent =
+            teacherCourses.length;
+
+    }
+
+
+    let totalLessons = 0;
+
+
+    teacherCourses.forEach(function(course){
+
+        totalLessons +=
+            course.lessons.length;
+
+    });
+
+
+    if(lessonCount){
+
+        lessonCount.textContent =
+            totalLessons;
+
+    }
+
+
+    if(testCount){
+
+        testCount.textContent =
+            teacherTests.length;
+
+    }
+
+}
+
+
+/* =====================================================
+   STUDENTS
+===================================================== */
+
+function showStudents(){
+
+    document.getElementById(
+        "infoModalTitle"
+    ).textContent =
+        "👨‍🎓 O‘quvchilar ro‘yxati";
+
+
+    const students = [
+
+        ["Ali Valiyev","IT-101","IT"],
+        ["Madina Karimova","EN-101","English"],
+        ["Jasur Sobirov","TAR-101","Tarix"],
+        ["Dilnoza Akbarova","IT-102","IT"],
+        ["Sardor Rahimov","EN-102","English"],
+        ["Malika Xasanova","TAR-102","Tarix"]
+
+    ];
+
+
+    document.getElementById(
+        "infoModalContent"
+    ).innerHTML = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+                    <th>№</th>
+                    <th>O‘quvchi</th>
+                    <th>Guruh</th>
+                    <th>Yo‘nalish</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${students.map(
+                    function(student,index){
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    ${index+1}
+                                </td>
+
+                                <td>
+                                    ${student[0]}
+                                </td>
+
+                                <td>
+                                    ${student[1]}
+                                </td>
+
+                                <td>
+                                    ${student[2]}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                ).join("")}
+
+            </tbody>
+
+        </table>
+
+    `;
+
+
+    document.getElementById(
+        "infoModal"
+    ).classList.add("active");
+
+}
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+function showResults(){
+
+    document.getElementById(
+        "infoModalTitle"
+    ).textContent =
+        "📊 O‘quvchilar natijalari";
+
+
+    const results = [
+
+        ["Ali Valiyev","Dasturlash asoslari","92%"],
+        ["Madina Karimova","English tili","88%"],
+        ["Jasur Sobirov","Tarix","95%"],
+        ["Dilnoza Akbarova","Dasturlash asoslari","84%"],
+        ["Sardor Rahimov","English tili","91%"],
+        ["Malika Xasanova","Tarix","89%"]
+
+    ];
+
+
+    document.getElementById(
+        "infoModalContent"
+    ).innerHTML = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+                    <th>№</th>
+                    <th>O‘quvchi</th>
+                    <th>Kurs</th>
+                    <th>Natija</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${results.map(
+                    function(item,index){
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    ${index+1}
+                                </td>
+
+                                <td>
+                                    ${item[0]}
+                                </td>
+
+                                <td>
+                                    ${item[1]}
+                                </td>
+
+                                <td style="color:#ffd21f;font-weight:bold">
+                                    ${item[2]}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                ).join("")}
+
+            </tbody>
+
+        </table>
+
+    `;
+
+
+    document.getElementById(
+        "infoModal"
+    ).classList.add("active");
+
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+function updateAdminStats(){
+
+    const box =
+        document.getElementById(
+            "adminCourseCount"
+        );
+
+
+    if(box){
+
+        box.textContent =
+            teacherCourses.length;
+
+    }
+
+}
+
+
+function showAdminCourses(){
+
+    document.getElementById(
+        "infoModalTitle"
+    ).textContent =
+        "📚 Platformadagi kurslar";
+
+
+    const content =
+        document.getElementById(
+            "infoModalContent"
+        );
+
+
+    content.innerHTML =
+        teacherCourses.map(
+            function(course,index){
+
+                return `
+
+                    <div class="teacher-course-item">
+
+                        <div class="teacher-course-header">
+
+                            <h3>
+                                ${course.icon}
+                                ${escapeHtml(course.name)}
+                            </h3>
+
+                            <span>
+                                ${course.category}
+                            </span>
+
+                        </div>
+
+                        <div class="teacher-course-description">
+
+                            📖
+                            ${course.lessons.length}
+                            ta dars
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    document.getElementById(
+        "infoModal"
+    ).classList.add("active");
+
+}
+
+
+/* =====================================================
+   INFO MODAL
+===================================================== */
+
+function closeInfoModal(){
+
+    document.getElementById(
+        "infoModal"
+    ).classList.remove("active");
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+
+function toast(text){
+
+    const box =
+        document.getElementById(
+            "toast"
+        );
+
+
+    box.textContent =
+        text;
+
+
+    box.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                box.classList.remove("show");
+
+            },
+            2200
+        );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+    document.getElementById(
+        "password"
+    ).value = "";
+
+
+    document.getElementById(
+        "message"
+    ).textContent = "";
+
+
+    selectedRole =
+        "student";
+
+
+    document.querySelectorAll(
+        ".role"
+    ).forEach(function(item){
+
+        item.classList.remove(
+            "active"
+        );
+
+    });
+
+
+    document.querySelector(
+        ".role"
+    ).classList.add(
+        "active"
+    );
+
+
+    closeCourse();
+
+    closeTeacherModal();
+
+    closeInfoModal();
+
+    openPage("loginPage");
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+
+}
+
+
+/* =====================================================
+   MODAL CLICK
+===================================================== */
+
+document.getElementById(
+    "courseModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeCourse();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "teacherModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeTeacherModal();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "infoModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            closeInfoModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeCourse();
+
+            closeTeacherModal();
+
+            closeInfoModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+renderStudentCourses();
+
+renderTeacherCourses();
+
+updateTeacherStats();
+
+updateAdminStats();
+
+openPage("loginPage");
+
+</script>
+
+</body>
+</html>

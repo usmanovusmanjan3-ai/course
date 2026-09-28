@@ -1,0 +1,982 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --black: #050505;
+    --black2: #0a0a0a;
+    --card: #101010;
+    --gold: #ffd21f;
+    --gold-light: #fff3a3;
+    --gold-dark: #b88600;
+    --white: #ffffff;
+    --gray: #858585;
+    --border: rgba(255, 210, 31, .16);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--black);
+    color: var(--white);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+}
+
+.page.active {
+    display: block;
+}
+
+
+/* ================= LOGIN ================= */
+
+#loginPage {
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255,210,31,.08), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(255,210,31,.06), transparent 30%),
+        #050505;
+}
+
+#loginPage.active {
+    display: flex;
+}
+
+.login-box {
+    width: 430px;
+    padding: 45px;
+
+    position: relative;
+    z-index: 5;
+
+    background: rgba(12,12,12,.95);
+
+    border: 1px solid var(--border);
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.8),
+        0 0 50px rgba(255,210,31,.06);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 40px;
+}
+
+.brand-icon {
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--gold);
+    color: #000;
+
+    border-radius: 15px;
+
+    font-size: 30px;
+    font-weight: 900;
+
+    box-shadow: 0 0 30px rgba(255,210,31,.35);
+}
+
+.brand h1 {
+    font-size: 25px;
+    letter-spacing: 3px;
+}
+
+.brand span {
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+.login-box h2 {
+    font-size: 28px;
+}
+
+.login-subtitle {
+    color: var(--gray);
+    font-size: 13px;
+    margin: 8px 0 25px;
+}
+
+.role-tabs {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 7px;
+    margin-bottom: 15px;
+}
+
+.role-tab {
+    padding: 11px 5px;
+
+    background: #080808;
+    border: 1px solid #242424;
+
+    border-radius: 8px;
+
+    color: #777;
+    font-size: 11px;
+}
+
+.role-tab.active {
+    color: #000;
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.password-box {
+    display: flex;
+    align-items: center;
+
+    background: #080808;
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    padding: 0 14px;
+
+    margin-top: 18px;
+}
+
+.password-box span {
+    margin-right: 10px;
+}
+
+.password-box input {
+    flex: 1;
+
+    height: 52px;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: white;
+    font-size: 15px;
+}
+
+.password-box button {
+    border: none;
+    background: none;
+    color: #777;
+}
+
+.login-button {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    background: var(--gold);
+    color: #000;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    box-shadow: 0 0 25px rgba(255,210,31,.18);
+}
+
+.login-button span {
+    float: right;
+    font-size: 18px;
+}
+
+.login-message {
+    min-height: 20px;
+    margin-top: 12px;
+
+    text-align: center;
+
+    color: #ff6464;
+    font-size: 12px;
+}
+
+.login-info {
+    margin-top: 25px;
+    padding-top: 20px;
+
+    border-top: 1px solid #1c1c1c;
+
+    text-align: center;
+
+    color: #666;
+    font-size: 10px;
+}
+
+.login-decoration {
+    position: absolute;
+    border: 1px solid rgba(255,210,31,.1);
+    border-radius: 50%;
+}
+
+.decoration-1 {
+    width: 600px;
+    height: 600px;
+    left: -300px;
+}
+
+.decoration-2 {
+    width: 500px;
+    height: 500px;
+    right: -250px;
+}
+
+
+/* ================= TOPBAR ================= */
+
+.topbar {
+    height: 75px;
+
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(5,5,5,.94);
+
+    border-bottom: 1px solid #1a1a1a;
+    backdrop-filter: blur(15px);
+}
+
+.brand-small {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 19px;
+    letter-spacing: 2px;
+}
+
+.brand-icon-small {
+    width: 35px;
+    height: 35px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--gold);
+    color: #000;
+
+    border-radius: 9px;
+    font-weight: 900;
+}
+
+.topbar nav {
+    display: flex;
+    gap: 8px;
+}
+
+.topbar nav button {
+    background: transparent;
+    border: none;
+    color: #777;
+
+    padding: 9px 13px;
+
+    font-size: 12px;
+}
+
+.topbar nav button:hover {
+    color: var(--gold);
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.user-area > span {
+    font-size: 20px;
+}
+
+.user-area div {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-area b {
+    font-size: 11px;
+}
+
+.user-area small {
+    color: #666;
+    font-size: 9px;
+}
+
+.user-area button,
+.logout-button {
+    border: 1px solid #292929;
+    background: #101010;
+    color: #aaa;
+
+    padding: 8px 12px;
+    border-radius: 7px;
+}
+
+.teacher-title {
+    color: var(--gold);
+    font-size: 13px;
+}
+
+
+/* ================= STUDENT ================= */
+
+main {
+    max-width: 1300px;
+    margin: auto;
+    padding: 60px 5%;
+}
+
+.welcome {
+    min-height: 410px;
+
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    align-items: center;
+    gap: 50px;
+}
+
+.section-label {
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: 800;
+}
+
+.welcome h1 {
+    max-width: 650px;
+
+    margin: 15px 0;
+
+    font-size: clamp(40px, 5vw, 65px);
+    line-height: 1.05;
+}
+
+.welcome h1 span {
+    color: var(--gold);
+
+    text-shadow:
+        0 0 20px rgba(255,210,31,.35);
+}
+
+.welcome p {
+    max-width: 550px;
+
+    color: var(--gray);
+    font-size: 15px;
+
+    margin-bottom: 25px;
+}
+
+.gold-button {
+    border: none;
+
+    padding: 14px 21px;
+
+    border-radius: 9px;
+
+    background: var(--gold);
+    color: #000;
+
+    font-weight: 800;
+
+    box-shadow: 0 0 25px rgba(255,210,31,.15);
+}
+
+.welcome-card {
+    padding: 35px;
+
+    background:
+        linear-gradient(145deg,#141414,#080808);
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    text-align: center;
+}
+
+.circle-progress {
+    width: 150px;
+    height: 150px;
+
+    margin: auto auto 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border: 8px solid var(--gold);
+
+    box-shadow:
+        0 0 30px rgba(255,210,31,.15),
+        inset 0 0 30px rgba(255,210,31,.08);
+}
+
+.circle-progress strong {
+    font-size: 30px;
+    color: var(--gold);
+}
+
+.circle-progress small {
+    color: #777;
+}
+
+.welcome-card p {
+    margin: 5px auto 0;
+    font-size: 12px;
+}
+
+.dashboard-title {
+    margin: 30px 0 25px;
+}
+
+.dashboard-title h2 {
+    margin-top: 7px;
+}
+
+.mini-courses {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
+}
+
+.mini-course {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    padding: 22px;
+
+    background: var(--card);
+
+    border: 1px solid #1c1c1c;
+    border-radius: 15px;
+}
+
+.mini-icon {
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+    place-items: center;
+
+    background: rgba(255,210,31,.08);
+    border-radius: 13px;
+
+    font-size: 25px;
+}
+
+.mini-course > div {
+    flex: 1;
+}
+
+.mini-course span {
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.mini-course h3 {
+    font-size: 14px;
+    margin: 3px 0 10px;
+}
+
+.mini-course small {
+    color: #666;
+    font-size: 10px;
+}
+
+.mini-progress {
+    width: 100%;
+    height: 5px;
+
+    background: #222;
+
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+.mini-progress i {
+    display: block;
+    height: 100%;
+    background: var(--gold);
+}
+
+.mini-course > button {
+    width: 35px;
+    height: 35px;
+
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--gold);
+
+    border-radius: 8px;
+}
+
+
+/* ================= COURSE PAGE ================= */
+
+.page-heading {
+    margin-bottom: 45px;
+}
+
+.page-heading h1 {
+    font-size: 45px;
+    margin: 8px 0;
+}
+
+.page-heading p {
+    color: var(--gray);
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.course-card {
+    padding: 27px;
+
+    background: var(--card);
+
+    border: 1px solid #1d1d1d;
+
+    border-radius: 18px;
+
+    transition: .3s;
+    cursor: pointer;
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(255,210,31,.35);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.5),
+        0 0 25px rgba(255,210,31,.05);
+}
+
+.course-big-icon {
+    width: 65px;
+    height: 65px;
+
+    display: grid;
+    place-items: center;
+
+    background: rgba(255,210,31,.08);
+
+    border-radius: 15px;
+
+    font-size: 30px;
+
+    margin-bottom: 25px;
+}
+
+.course-card > span {
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.course-card h3 {
+    margin: 9px 0;
+    font-size: 19px;
+}
+
+.course-card p {
+    min-height: 65px;
+
+    color: var(--gray);
+    font-size: 12px;
+}
+
+.course-bottom {
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.course-bottom small {
+    color: #666;
+}
+
+.course-bottom b {
+    color: var(--gold);
+    font-size: 20px;
+}
+
+
+/* ================= RESULTS ================= */
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+}
+
+.result-card,
+.admin-card {
+    padding: 28px;
+
+    background: var(--card);
+
+    border: 1px solid #1d1d1d;
+
+    border-radius: 16px;
+}
+
+.result-card span,
+.admin-card span {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+.result-card strong,
+.admin-card strong {
+    display: block;
+
+    font-size: 30px;
+
+    color: var(--gold);
+}
+
+.result-card small,
+.admin-card small {
+    color: #666;
+}
+
+
+/* ================= CERTIFICATE ================= */
+
+.certificate-box {
+    max-width: 650px;
+
+    margin: 80px auto;
+
+    padding: 60px;
+
+    text-align: center;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+.certificate-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.certificate-box p {
+    color: var(--gray);
+    margin: 10px 0 25px;
+}
+
+
+/* ================= TEACHER / ADMIN ================= */
+
+.panel-main {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.panel-heading h1 {
+    font-size: 42px;
+    margin: 10px 0;
+}
+
+.panel-heading p {
+    color: var(--gray);
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+
+    margin: 40px 0;
+}
+
+.management-box {
+    padding: 30px;
+
+    background: var(--card);
+
+    border: 1px solid #1c1c1c;
+    border-radius: 18px;
+}
+
+.management-box h2 {
+    margin-bottom: 25px;
+}
+
+.management-button {
+    display: block;
+
+    width: 100%;
+
+    padding: 15px;
+    margin-bottom: 10px;
+
+    text-align: left;
+
+    background: #080808;
+
+    color: #ccc;
+
+    border: 1px solid #222;
+    border-radius: 9px;
+}
+
+.management-button:hover {
+    color: var(--gold);
+    border-color: var(--border);
+}
+
+
+/* ================= MODAL ================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(8px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.course-modal {
+    width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 35px;
+
+    position: relative;
+
+    background: #111;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+}
+
+.modal-close {
+    position: absolute;
+
+    right: 20px;
+    top: 15px;
+
+    border: none;
+    background: none;
+
+    color: #777;
+
+    font-size: 30px;
+}
+
+.modal-course-icon {
+    width: 65px;
+    height: 65px;
+
+    display: grid;
+    place-items: center;
+
+    background: rgba(255,210,31,.08);
+
+    border-radius: 15px;
+
+    font-size: 30px;
+
+    margin-bottom: 20px;
+}
+
+.course-modal > span {
+    color: var(--gold);
+
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.course-modal h2 {
+    margin: 8px 0;
+}
+
+.course-modal > p {
+    color: var(--gray);
+    font-size: 13px;
+
+    margin-bottom: 25px;
+}
+
+.lesson-list {
+    display: grid;
+    gap: 10px;
+}
+
+.lesson {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 15px;
+
+    background: #090909;
+
+    border: 1px solid #202020;
+    border-radius: 10px;
+}
+
+.lesson > span {
+    color: var(--gold);
+    font-weight: 800;
+}
+
+.lesson div {
+    flex: 1;
+}
+
+.lesson b {
+    display: block;
+    font-size: 13px;
+}
+
+.lesson small {
+    color: #666;
+    font-size: 10px;
+}
+
+.lesson button {
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--gold);
+    color: #000;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1000px) {
+
+    .welcome {
+        grid-template-columns: 1fr;
+    }
+
+    .course-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .result-grid,
+    .admin-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .topbar nav {
+        display: none;
+    }
+}
+
+
+@media(max-width: 650px) {
+
+    .login-box {
+        width: calc(100% - 30px);
+        padding: 30px 22px;
+    }
+
+    .role-tabs {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 40px 5%;
+    }
+
+    .welcome h1 {
+        font-size: 42px;
+    }
+
+    .mini-courses,
+    .course-grid,
+    .result-grid,
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading h1 {
+        font-size: 35px;
+    }
+
+    .user-area div {
+        display: none;
+    }
+
+    .teacher-title {
+        display: none;
+    }
+
+    .certificate-box {
+        padding: 40px 20px;
+    }
+}
